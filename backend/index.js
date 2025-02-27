@@ -15,8 +15,21 @@ fastify.get('/', (request, reply) => {
 
 // POST route with JSON parsing
 fastify.post('/login', async (request, reply) => {
-  const { email, name } = request.body;
-  reply.send({ message: 'Login successful', name, email });
+  const { email, name,password } = request.body;
+
+if(!email) {
+  return reply.status(400).send({ message: 'Email is required' });
+}
+
+else if(!name) {
+  return reply.status(400).send({ message: 'Name is required' });
+}
+
+else if(!password) {
+  return reply.status(400).send({ message: 'Password is required' });
+}
+
+  reply.send({ message: 'Login successful', name, email,password });
   console.log(email,name);
 });
 

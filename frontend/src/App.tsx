@@ -3,13 +3,14 @@ import * as Yup from 'yup'
 import { Button } from './components/ui/button'
 import { cn } from './lib/utils'
 import axios from 'axios'
+import { toast, ToastContainer } from 'react-toastify'
 
 
 function App() {
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email').required('Required'),
     name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-    password: Yup.string().min(8, 'Too Short!').max(50, 'Too Long!').required('Required'),
+    password: Yup.string().min(8, 'Too Short!').max(50, 'Too Long!').required('Required')
   })
 
   const formik = useFormik({
@@ -22,24 +23,14 @@ function App() {
     onSubmit:async (values) => {
       console.log(values)
       try {
-        // fetch('http://localhost:3000/login', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({ values }),
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => console.log(data))
-        //   .catch((err) => console.error(err));
-
-        const res = axios.post('http://localhost:3000/login', values)
-        console.log((await res).data.message)
+        const res = await axios.post('http://localhost:3000/login', values)
+        console.log( res.data.message)
         
-      } catch (error) {
-        console.log(error)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error : string | any) {
+        console.log(error.response.data.message)
+        toast.error(error.response.data.message)
       }
-      
     },
   })
 
@@ -100,6 +91,8 @@ function App() {
           Submit
         </Button>
       </form>
+      <ToastContainer/>
+    
     </div>
   )
 }
