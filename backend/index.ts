@@ -40,7 +40,9 @@ fastify.post("/login", async (request, reply) => {
     return reply.status(400).send({ message: "Password is required" });
   }
 
-  const exisistingEmail = await db.select().from(User).where(eq(User.email, email)).execute();
+  const exisistingEmail = await db.query.User.findFirst({
+    where: eq(User.email, email),
+  })
 
   if (exisistingEmail) {
     return reply.status(400).send({ message: "Email already exists" });
