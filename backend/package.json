@@ -1,17 +1,34 @@
 {
   "dependencies": {
     "@fastify/cors": "^11.0.0",
+    "deps": "^1.0.0",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.40.0",
     "fastify": "^5.2.1",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "peer": "^1.0.2",
+    "pg": "^8.13.3",
+    "postgres": "^3.4.5",
+    "typescript": "^5.7.3",
+    "uuid": "^11.1.0"
   },
   "name": "fastify",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "test": "tsx watch index.ts",
+    "db": "drizzle-kit generate",
+    "migrate": "tsx src/drizzle/migration.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.13.7",
+    "@types/pg": "^8.11.11",
+    "drizzle-kit": "^0.30.5",
+    "tsx": "^4.19.3"
+  }
 }
