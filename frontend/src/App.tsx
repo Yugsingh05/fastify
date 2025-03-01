@@ -24,7 +24,9 @@ function App() {
       console.log(values)
       try {
         const res = await axios.post('http://localhost:3000/login', values)
-        console.log( res.data.message)
+      if(res.data.success){
+        toast.success(res.data.message)
+      }
         
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error : string | any) {

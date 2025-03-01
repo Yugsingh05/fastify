@@ -40,7 +40,9 @@ fastify.post("/login", async (request, reply) => {
     return reply.status(400).send({ message: "Password is required" });
   }
 
-  reply.send({ message: "Login successful", name, email, password });
+  reply.send({success: true, message: "Login successful", data : {
+    name, email, password 
+  }});
   try {
     await db.insert(User).values({
       id: uuidv4(),
