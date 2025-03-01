@@ -3,10 +3,12 @@ import * as Yup from 'yup'
 import { Button } from '../components/ui/button'
 import { cn } from '../lib/utils'
 import axios from 'axios'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 
 function Signup() {
+  const navigate = useNavigate()
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email').required('Required'),
     name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
@@ -25,6 +27,8 @@ function Signup() {
       try {
         const res = await axios.post('http://localhost:3000/login', values)
       if(res.data.success){
+        navigate('/')
+        
         toast.success(res.data.message)
       }
         
@@ -93,7 +97,7 @@ function Signup() {
           Submit
         </Button>
       </form>
-      <ToastContainer/>
+     
     
     </div>
   )

@@ -1,10 +1,12 @@
-import Signup from "./auth/Signup"
-
+import { Outlet } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
 function App() {
 
 
   return (
-  <Signup/>
+ <>
+ <Outlet/>
+ <ToastContainer/></>
   
   )
 }
