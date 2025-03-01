@@ -40,6 +40,12 @@ fastify.post("/login", async (request, reply) => {
     return reply.status(400).send({ message: "Password is required" });
   }
 
+  const exisistingEmail = await db.select().from(User).where(eq(User.email, email)).execute();
+
+  if (exisistingEmail) {
+    return reply.status(400).send({ message: "Email already exists" });
+  }
+
   reply.send({success: true, message: "Login successful", data : {
     name, email, password 
   }});
